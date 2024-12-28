@@ -1,4 +1,4 @@
-# Quantum-Resistant Blockchain
+## Quantum-Resistant Blockchain
 
 Getting Started
 
