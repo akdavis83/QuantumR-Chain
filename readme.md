@@ -220,6 +220,7 @@ Frontend:
 HTML and JavaScript (jQuery).
 
 How to Run
+
 Install Dependencies:
 
 pip install flask ecdsa kyber base58
