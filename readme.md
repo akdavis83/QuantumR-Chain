@@ -14,7 +14,7 @@ Installation
 Clone the repository:
 
 ```git clone https://github.com/your-username/quantum-resistant-blockchain.git
-cd quantum-resistant-blockchain```
+cd quantum-resistant-blockchain
 
 **`Install dependencies:`**
 
