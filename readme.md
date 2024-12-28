@@ -216,7 +216,9 @@ hashlib: For hashing and proof-of-work.
 Frontend:
 
 HTML and JavaScript (jQuery).
-How to Run
+
+# How to Run
+
 Install Dependencies:
 
 pip install flask ecdsa kyber base58
