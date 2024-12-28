@@ -11,7 +11,7 @@ pip (Python package manager)
 Flask
 Installation
 
-Clone the repository:
+**`Clone the repository:`**
 
 ```git clone https://github.com/your-username/quantum-resistant-blockchain.git
 cd quantum-resistant-blockchain
