@@ -18,9 +18,9 @@ cd quantum-resistant-blockchain
 
 Create and activate a virtual environment:
 
-Install dependencies:
+**`Install dependencies:`**
 
-```**pip** install pip install flask ecdsa kyber **base58**```
+```pip install pip install flask ecdsa kyber base58```
 
 
 Running the Application
