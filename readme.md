@@ -202,16 +202,23 @@ Salting Passwords:
 Use a unique salt for each password before hashing to improve resistance against precomputed attacks.
 
 Dependencies
+
 Python Libraries:
 
 Flask: Web framework.
+
 ecdsa: For ECDSA key generation and signing.
+
 kyber: For quantum-resistant cryptography.
+
 base58: For encoding blockchain addresses.
+
 hashlib: For hashing and proof-of-work.
+
 Frontend:
 
 HTML and JavaScript (jQuery).
+
 How to Run
 Install Dependencies:
 
@@ -220,6 +227,7 @@ pip install flask ecdsa kyber base58
 Start the Flask Server:
 
 python app.py
+
 Access the Application: Open a browser and navigate to http://localhost:5000.
 
 Notes
