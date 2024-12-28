@@ -226,6 +226,7 @@ pip install flask ecdsa kyber base58
 Start the Flask Server:
 
 python app.py
+
 Access the Application: Open a browser and navigate to http://localhost:5000.
 
 Notes
