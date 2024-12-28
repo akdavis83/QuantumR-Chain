@@ -219,7 +219,7 @@ Frontend:
 
 HTML and JavaScript (jQuery).
 
-How to Run
+# How to Run
 
 Install Dependencies:
 
