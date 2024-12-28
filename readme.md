@@ -13,10 +13,8 @@ Installation
 
 Clone the repository:
 
-git clone https://github.com/your-username/quantum-resistant-blockchain.git
-cd quantum-resistant-blockchain
-
-Create and activate a virtual environment:
+```git clone https://github.com/your-username/quantum-resistant-blockchain.git
+cd quantum-resistant-blockchain```
 
 **`Install dependencies:`**
 
