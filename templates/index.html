@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum-Resistant Blockchain</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <h1>Quantum-Resistant Blockchain</h1>
+
+    <!-- Mine a Block -->
+    <h2>Mine a Block</h2>
+    <button id="mineBlock">Mine Block</button>
+    <pre id="mineResult"></pre>
+
+    <!-- Add a Transaction -->
+    <h2>Sign Transaction</h2>
+<form id="signTransactionForm">
+    <label for="sign_user_id">User ID:</label>
+    <input type="text" id="sign_user_id" required>
+    <br>
+    <label for="sign_address">Sender Address:</label>
+    <input type="text" id="sign_address" required>
+    <br>
+    <label for="sign_recipient">Recipient Address:</label>
+    <input type="text" id="sign_recipient" required>
+    <br>
+    <label for="sign_amount">Amount:</label>
+    <input type="number" id="sign_amount" required>
+    <br>
+    <button type="submit">Sign Transaction</button>
+</form>
+<pre id="signTransactionResult"></pre>
+
+<h2>Send Transaction</h2>
+<form id="sendTransactionForm">
+    <label for="send_sender">Sender Address:</label>
+    <input type="text" id="send_sender" required>
+    <br>
+    <label for="send_recipient">Recipient Address:</label>
+    <input type="text" id="send_recipient" required>
+    <br>
+    <label for="send_amount">Amount:</label>
+    <input type="number" id="send_amount" required>
+    <br>
+    <label for="send_signature">Signature:</label>
+    <input type="text" id="send_signature" required>
+    <br>
+    <button type="submit">Send Transaction</button>
+</form>
+<pre id="sendTransactionResult"></pre>
+
+
+    <!-- View Blockchain -->
+    <h2>View Blockchain</h2>
+    <button id="viewChain">View Chain</button>
+    <pre id="chainResult"></pre>
+
+     <!-- Generate Key Pair -->
+     <h2>Generate Key Pair</h2>
+     <form id="generateKeysForm">
+         <label for="user_id">User ID:</label>
+         <input type="text" id="user_id" name="user_id" required>
+         <br>
+         <label for="password">Password (optional):</label>
+         <input type="password" id="password" name="password">
+         <br>
+         <button type="submit">Generate Keys</button>
+     </form>
+     <pre id="generateKeysResult"></pre>
+ 
+     <!-- Retrieve Key Pair -->
+     <h2>Retrieve Key Pair</h2>
+     <form id="getKeysForm">
+         <label for="retrieve_user_id">User ID:</label>
+         <input type="text" id="retrieve_user_id" name="retrieve_user_id" required>
+         <br>
+         <button type="submit">Get Keys</button>
+     </form>
+     <pre id="getKeysResult"></pre>
+
+    <!-- Export Keys -->
+    <h2>Export Keys</h2>
+    <form id="exportKeysForm">
+        <label for="export_user_id">User ID:</label>
+        <input type="text" id="export_user_id" required>
+        <label for="export_address">Address:</label>
+        <input type="text" id="export_address" required>
+        <button type="button" id="exportKeysButton">Export Keys</button>
+    </form>
+    <pre id="exportKeysResult"></pre>
+
+    <!-- Check Balance -->
+    <h2>Check Balance</h2>
+    <form id="checkBalanceForm">
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required>
+        <br>
+        <button type="submit">Check Balance</button>
+    </form>
+    <pre id="balanceResult"></pre>
+
+    <script>
+        $(document).ready(function () {
+            // Mine a Block
+            $("#mineBlock").click(function () {
+                $.get("/mine", function (data) {
+                    $("#mineResult").text(JSON.stringify(data, null, 2));
+                }).fail(function (err) {
+                    $("#mineResult").text(`Error: ${err.responseJSON?.error || "Unknown error"}`);
+                });
+            });
+
+            // Sign a Transaction
+ $("#signTransactionForm").submit(function (event) {
+     event.preventDefault();
+     const signTransactionData = {
+         user_id: $("#sign_user_id").val(),
+         address: $("#sign_address").val(),
+         recipient: $("#sign_recipient").val(),
+         amount: parseInt($("#sign_amount").val()),
+     };
+     $.ajax({
+         url: "/transactions/sign",
+         type: "POST",
+         contentType: "application/json",
+         data: JSON.stringify(signTransactionData),
+         success: function (data) {
+             $("#signTransactionResult").text(JSON.stringify(data, null, 2));
+         },
+         error: function (err) {
+             $("#signTransactionResult").text(`Error: ${err.responseJSON?.error || "Unknown error"}`);
+         },
+     });
+ });
+
+ // Send a Transaction
+ $("#sendTransactionForm").submit(function (event) {
+     event.preventDefault();
+     const sendTransactionData = {
+         sender: $("#send_sender").val(),
+         recipient: $("#send_recipient").val(),
+         amount: parseInt($("#send_amount").val()),
+         signature: $("#send_signature").val(),
+     };
+     $.ajax({
+         url: "/transactions/new",
+         type: "POST",
+         contentType: "application/json",
+         data: JSON.stringify(sendTransactionData),
+         success: function (data) {
+             $("#sendTransactionResult").text(JSON.stringify(data, null, 2));
+         },
+         error: function (err) {
+              $("#sendTransactionResult").text(`Error: ${err.responseJSON?.error || "Unknown error"}`);
+         },
+     });
+ });
+
+            // View Blockchain
+            $("#viewChain").click(function () {
+                $.get("/chain", function (data) {
+                    $("#chainResult").text(JSON.stringify(data, null, 2));
+                });
+            });
+
+           // Generate Keys
+           $("#generateKeysForm").submit(function (event) {
+                event.preventDefault();
+                const user_id = $("#user_id").val();
+                const password = $("#password").val();
+                const requestData = { user_id };
+                if (password) requestData.password = password;
+
+                $.ajax({
+                    url: "/generate_keys",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(requestData),
+                    success: function (data) {
+                        $("#generateKeysResult").text(JSON.stringify(data, null, 2));
+                    },
+                    error: function (err) {
+                        $("#generateKeysResult").text(`Error: ${err.responseJSON?.error || "Unknown error"}`);
+                    },
+                });
+            });
+
+            // Retrieve Keys
+            $("#getKeysForm").submit(function (event) {
+                event.preventDefault();
+                const user_id = $("#retrieve_user_id").val();
+
+                $.get(`/get_keys/${user_id}`, function (data) {
+                    $("#getKeysResult").text(JSON.stringify(data, null, 2));
+                }).fail(function (err) {
+                    $("#getKeysResult").text(`Error: ${err.responseJSON?.error || "User not found"}`);
+                });
+            });
+
+            // Export Keys
+            $("#exportKeysButton").click(function () {
+        const user_id = $("#export_user_id").val();
+        const address = $("#export_address").val();
+
+        if (!user_id || !address) {
+            alert("User ID and address are required.");
+            return;
+        }
+
+        const url = `/export_keys/${user_id}/${address}`;
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Error exporting keys.");
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                const a = document.createElement("a");
+                const url = URL.createObjectURL(blob);
+                a.href = url;
+                a.download = `${address}_keys.json`;
+                document.body.appendChild(a);
+                a.click();
+                URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Error exporting keys. Check console.");
+            });
+    });
+
+            // Check Balance
+            $("#checkBalanceForm").submit(function (event) {
+                event.preventDefault();
+                const address = $("#address").val();
+                $.get(`/balance/${address}`, function (data) {
+                    $("#balanceResult").text(JSON.stringify(data, null, 2));
+                }).fail(function (err) {
+                    $("#balanceResult").text(JSON.stringify(err.responseJSON, null, 2));
+                });
+            });
+        });
+    </script>
+</body>
+</html>
