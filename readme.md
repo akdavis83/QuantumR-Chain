@@ -186,3 +186,37 @@ This application implements a quantum-safe blockchain system using Flask as the 
   "private_key": "hex_private_key",
   "address": "blockchain_address"
 }
+
+# Getting Started
+
+Prerequisites
+
+Ensure you have the following installed:
+
+Python 3.8 or later
+pip (Python package manager)
+Flask
+Installation
+
+Clone the repository:
+
+git clone https://github.com/your-username/quantum-resistant-blockchain.git
+cd quantum-resistant-blockchain
+
+Create and activate a virtual environment:
+
+Install dependencies:
+
+pip install pip install flask ecdsa kyber base58
+
+
+Running the Application
+
+Start the Flask development server:
+
+flask run
+Open your browser and navigate to:
+
+arduino
+Copy code
+http://127.0.0.1:5000/
